@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF de Criptografía</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CTF de Criptografía</h1>
+            <p>Resuelve los desafíos y encuentra las flags</p>
+            <div class="score-board">
+                <span>Flags encontradas: </span>
+                <span id="flags-found">0</span>/10
+            </div>
+        </header>
+
+        <div class="difficulty-selector">
+            <button class="difficulty-btn active" data-difficulty="nivel1">Nivel 1</button>
+            <button class="difficulty-btn" data-difficulty="nivel2">Nivel 2</button>
+            <button class="difficulty-btn" data-difficulty="nivel3">Nivel 3</button>
+            <button class="difficulty-btn" data-difficulty="nivel4">Nivel 4</button>
+            <button class="difficulty-btn" data-difficulty="nivel5">Nivel 5</button>
+            <button class="difficulty-btn" data-difficulty="nivel6">Nivel 6</button>
+            <button class="difficulty-btn" data-difficulty="nivel7">Nivel 7</button>
+            <button class="difficulty-btn" data-difficulty="nivel8">Nivel 8</button>
+            <button class="difficulty-btn" data-difficulty="nivel9">Nivel 9</button>
+            <button class="difficulty-btn" data-difficulty="nivel10">Nivel 10</button>
+        </div>
+
+        <div class="exercises-container">
+            <!-- Nivel 1: Cifrado César Básico -->
+            <div class="exercise-card" data-difficulty="nivel1">
+                <h3>Nivel 1: Cifrado César Básico</h3>
+                <div class="description">
+                    <h4>Descripción:</h4>
+                    <p>El cifrado César es uno de los métodos de cifrado más antiguos y simples. Cada letra del texto se reemplaza por otra letra que se encuentra un número fijo de posiciones más adelante en el alfabeto.</p>
+                    <div class="challenge-box">
+                        <h4>Desafío:</h4>
+                        <p class="challenge-message">KHOOR ZRUOG</p>
+                        <p class="challenge-hint">Pista: El mensaje está cifrado con un desplazamiento fijo</p>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="flag-input-container">
+                        <input type="text" id="flag-input-1" placeholder="Ingresa la flag (formato: FLAG{texto})">
+                        <button onclick="validateFlag('nivel1')">Validar Flag</button>
+                    </div>
+                    <div class="tools-container">
+                        <input type="text" id="caesar-input" placeholder="Ingresa tu texto">
+                        <input type="number" id="caesar-shift" placeholder="Desplazamiento" min="1" max="25">
+                        <button onclick="cipherCaesar()">Cifrar</button>
+                        <button onclick="decipherCaesar()">Descifrar</button>
+                        <p id="caesar-result"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nivel 2: Cifrado César Avanzado -->
+            <div class="exercise-card" data-difficulty="nivel2">
+                <h3>Nivel 2: Cifrado César Avanzado</h3>
+                <div class="description">
+                    <h4>Descripción:</h4>
+                    <p>En esta versión avanzada del cifrado César, deberás descifrar un mensaje sin conocer el desplazamiento. Usa el análisis de frecuencia de letras para encontrar la clave.</p>
+                    <div class="challenge-box">
+                        <h4>Desafío:</h4>
+                        <p class="challenge-message">XLI GSQIW XS FIWX</p>
+                        <p class="challenge-hint">Pista: Analiza la frecuencia de las letras</p>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="flag-input-container">
+                        <input type="text" id="flag-input-2" placeholder="Ingresa la flag (formato: FLAG{texto})">
+                        <button onclick="validateFlag('nivel2')">Validar Flag</button>
+                    </div>
+                    <div class="tools-container">
+                        <input type="text" id="caesar-advanced-input" placeholder="Ingresa el texto cifrado">
+                        <button onclick="analyzeFrequency()">Analizar Frecuencia</button>
+                        <div id="frequency-analysis"></div>
+                        <p id="caesar-advanced-result"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nivel 3: Cifrado Vigenère -->
+            <div class="exercise-card" data-difficulty="nivel3">
+                <h3>Nivel 3: Cifrado Vigenère</h3>
+                <div class="description">
+                    <h4>Descripción:</h4>
+                    <p>El cifrado Vigenère es un método de cifrado polialfabético que usa una palabra clave para determinar el desplazamiento de cada letra.</p>
+                    <div class="challenge-box">
+                        <h4>Desafío:</h4>
+                        <p class="challenge-message">XMKQ ZQKX</p>
+                        <p class="challenge-hint">Pista: La clave es una palabra corta</p>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="flag-input-container">
+                        <input type="text" id="flag-input-3" placeholder="Ingresa la flag (formato: FLAG{texto})">
+                        <button onclick="validateFlag('nivel3')">Validar Flag</button>
+                    </div>
+                    <div class="tools-container">
+                        <input type="text" id="vigenere-input" placeholder="Ingresa tu texto">
+                        <input type="text" id="vigenere-key" placeholder="Clave">
+                        <button onclick="cipherVigenere()">Cifrar</button>
+                        <button onclick="decipherVigenere()">Descifrar</button>
+                        <p id="vigenere-result"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nivel 4: Análisis de Vigenère -->
+            <div class="exercise-card" data-difficulty="nivel4">
+                <h3>Nivel 4: Análisis de Vigenère</h3>
+                <div class="description">
+                    <h4>Descripción:</h4>
+                    <p>En este nivel, deberás descifrar un mensaje Vigenère sin conocer la clave. Usa el método de Kasiski para encontrar la longitud de la clave.</p>
+                    <div class="challenge-box">
+                        <h4>Desafío:</h4>
+                        <p class="challenge-message">QJKESQTPQJKESQTPQJKESQTP</p>
+                        <p class="challenge-hint">Pista: Busca secuencias repetidas de 4 letras</p>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="flag-input-container">
+                        <input type="text" id="flag-input-4" placeholder="Ingresa la flag (formato: FLAG{texto})">
+                        <button onclick="validateFlag('nivel4')">Validar Flag</button>
+                    </div>
+                    <div class="tools-container">
+                        <input type="text" id="vigenere-analyze-input" placeholder="Ingresa el texto cifrado">
+                        <button onclick="analyzeVigenere()">Analizar</button>
+                        <div id="vigenere-analysis"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nivel 5: Cifrado RSA Básico -->
+            <div class="exercise-card" data-difficulty="nivel5">
+                <h3>Nivel 5: Cifrado RSA Básico</h3>
+                <div class="description">
+                    <h4>Descripción:</h4>
+                    <p>El RSA es un algoritmo de cifrado asimétrico que usa un par de claves: pública y privada.</p>
+                    <div class="challenge-box">
+                        <h4>Desafío:</h4>
+                        <p class="challenge-message">72 89 76 65 71</p>
+                        <p class="challenge-hint">Pista: Usa los números primos p=11 y q=13</p>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="flag-input-container">
+                        <input type="text" id="flag-input-5" placeholder="Ingresa la flag (formato: FLAG{texto})">
+                        <button onclick="validateFlag('nivel5')">Validar Flag</button>
+                    </div>
+                    <div class="tools-container">
+                        <input type="number" id="rsa-p" placeholder="Número primo p" value="11">
+                        <input type="number" id="rsa-q" placeholder="Número primo q" value="13">
+                        <input type="text" id="rsa-message" placeholder="Mensaje a cifrar">
+                        <button onclick="generateRSAKeys()">Generar Claves</button>
+                        <button onclick="cipherRSA()">Cifrar</button>
+                        <button onclick="decipherRSA()">Descifrar</button>
+                        <p id="rsa-result"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nivel 6: Cifrado RSA Avanzado -->
+            <div class="exercise-card" data-difficulty="nivel6">
+                <h3>Nivel 6: Cifrado RSA Avanzado</h3>
+                <div class="description">
+                    <h4>Descripción:</h4>
+                    <p>En este nivel, deberás factorizar el módulo n para romper el cifrado RSA.</p>
+                    <div class="challenge-box">
+                        <h4>Desafío:</h4>
+                        <p class="challenge-message">n = 323</p>
+                        <p class="challenge-hint">Pista: Factoriza el número n</p>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="flag-input-container">
+                        <input type="text" id="flag-input-6" placeholder="Ingresa la flag (formato: FLAG{texto})">
+                        <button onclick="validateFlag('nivel6')">Validar Flag</button>
+                    </div>
+                    <div class="tools-container">
+                        <input type="number" id="rsa-factor-n" placeholder="Módulo n" value="323">
+                        <button onclick="factorizeRSA()">Factorizar</button>
+                        <div id="rsa-factorization"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nivel 7: Cifrado AES -->
+            <div class="exercise-card" data-difficulty="nivel7">
+                <h3>Nivel 7: Cifrado AES</h3>
+                <div class="description">
+                    <h4>Descripción:</h4>
+                    <p>El AES (Advanced Encryption Standard) es un cifrado de bloque simétrico moderno.</p>
+                    <div class="challenge-box">
+                        <h4>Desafío:</h4>
+                        <p class="challenge-message">48656c6c6f20576f726c64</p>
+                        <p class="challenge-hint">Pista: La clave es una secuencia numérica</p>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="flag-input-container">
+                        <input type="text" id="flag-input-7" placeholder="Ingresa la flag (formato: FLAG{texto})">
+                        <button onclick="validateFlag('nivel7')">Validar Flag</button>
+                    </div>
+                    <div class="tools-container">
+                        <input type="text" id="aes-input" placeholder="Texto a cifrar">
+                        <input type="text" id="aes-key" placeholder="Clave (16 caracteres)" value="1234567890123456">
+                        <button onclick="cipherAES()">Cifrar</button>
+                        <button onclick="decipherAES()">Descifrar</button>
+                        <p id="aes-result"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nivel 8: Hash y Firma Digital -->
+            <div class="exercise-card" data-difficulty="nivel8">
+                <h3>Nivel 8: Hash y Firma Digital</h3>
+                <div class="description">
+                    <h4>Descripción:</h4>
+                    <p>Aprende sobre funciones hash y cómo se usan en firmas digitales.</p>
+                    <div class="challenge-box">
+                        <h4>Desafío:</h4>
+                        <p class="challenge-message">FLAG{hash_me}</p>
+                        <p class="challenge-hint">Pista: Genera un hash del mensaje</p>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="flag-input-container">
+                        <input type="text" id="flag-input-8" placeholder="Ingresa la flag (formato: FLAG{texto})">
+                        <button onclick="validateFlag('nivel8')">Validar Flag</button>
+                    </div>
+                    <div class="tools-container">
+                        <input type="text" id="hash-input" placeholder="Texto para hash">
+                        <button onclick="generateHash()">Generar Hash</button>
+                        <div id="hash-result"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nivel 9: Criptografía Cuántica -->
+            <div class="exercise-card" data-difficulty="nivel9">
+                <h3>Nivel 9: Criptografía Cuántica</h3>
+                <div class="description">
+                    <h4>Descripción:</h4>
+                    <p>Explora los conceptos básicos de la criptografía cuántica y el protocolo BB84.</p>
+                    <div class="challenge-box">
+                        <h4>Desafío:</h4>
+                        <p class="challenge-message">01001000 01101001</p>
+                        <p class="challenge-hint">Pista: Sigue los pasos del protocolo BB84</p>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="flag-input-container">
+                        <input type="text" id="flag-input-9" placeholder="Ingresa la flag (formato: FLAG{texto})">
+                        <button onclick="validateFlag('nivel9')">Validar Flag</button>
+                    </div>
+                    <div class="tools-container">
+                        <button onclick="simulateBB84()">Simular BB84</button>
+                        <div id="quantum-result"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nivel 10: Desafío Final -->
+            <div class="exercise-card" data-difficulty="nivel10">
+                <h3>Nivel 10: Desafío Final</h3>
+                <div class="description">
+                    <h4>Descripción:</h4>
+                    <p>Combina todos los conocimientos adquiridos para resolver un desafío de criptografía complejo.</p>
+                    <div class="challenge-box">
+                        <h4>Desafío:</h4>
+                        <p class="challenge-message">U2FsdGVkX1+8m6v3x7j9</p>
+                        <p class="challenge-hint">Pista: Combina múltiples técnicas de cifrado</p>
+                    </div>
+                </div>
+                <div class="exercise-content">
+                    <div class="flag-input-container">
+                        <input type="text" id="flag-input-10" placeholder="Ingresa la flag (formato: FLAG{texto})">
+                        <button onclick="validateFlag('nivel10')">Validar Flag</button>
+                    </div>
+                    <div class="tools-container">
+                        <input type="text" id="challenge-input" placeholder="Ingresa el desafío">
+                        <button onclick="solveChallenge()">Resolver</button>
+                        <div id="challenge-result"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 

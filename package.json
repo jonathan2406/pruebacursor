@@ -1,0 +1,12 @@
+{
+    "name": "ctf-criptografia",
+    "version": "1.0.0",
+    "description": "CTF de Criptografía para clase de seguridad",
+    "main": "index.html",
+    "scripts": {
+        "start": "serve"
+    },
+    "dependencies": {
+        "serve": "^14.2.1"
+    }
+} 
